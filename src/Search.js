@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import Data from "./Data";
 const Search = () => {
 
     const [searchInput, setSearchInput] = useState("");
@@ -9,7 +9,7 @@ const Search = () => {
     const search = () => {
         const options = {
             method: 'GET',
-            url: `https://trackapi.nutritionix.com/v2/search/instant?query=${searchInput}`,
+            url: `https://trackapi.nutritionix.com/v2/search/instant?query=${searchInput}&branded=true&common=true&detailed=true`,
             headers: {
                 'content-type': 'application/json',
                 'x-app-id': 'ee072628',
@@ -34,6 +34,7 @@ const Search = () => {
 
     return (
         <div className="content">
+            <h1 className="searchLabel">Search for any kind of food</h1>
             <div className="food-search">
                 <input
                     className="text-input"
@@ -44,17 +45,7 @@ const Search = () => {
                 />
                 <button onClick={search} className="searchButton">Search Food</button>
             </div>
-            <div className="data">
-                {foods.map((food, index) => (
-                    <div key={index} >
-                        <div className="food">
-                            <p>{food.food_name}</p>
-                            <img src={food.photo.thumb} alt="" />
-                            <button className="addFoodButton">Add Food</button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+        <Data foods={foods} />
         </div>
     )
 }
